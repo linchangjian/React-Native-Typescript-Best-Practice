@@ -11,6 +11,7 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { FlexLayoutPage } from './src/features/flexlayout/FlexLayoutPage';
+import { LoginPage } from './src/features/login/LoginPage';
 import {
   SafeAreaView,
   StyleSheet,
@@ -55,6 +56,10 @@ class HomeScreen extends React.Component<State,Props> {
           title="Go to flexlayout"
           onPress={() => this.props.navigation.navigate('FlexLayout')}
         />
+        <Button
+          title="Login Page"
+          onPress={() => this.props.navigation.navigate('LoginPage')}
+        />
       </View>
     );
   }
@@ -76,7 +81,8 @@ const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     Details: DetailsScreen,
-    FlexLayout: FlexLayoutPage
+    FlexLayout: FlexLayoutPage,
+    LoginPage : LoginPage
   },
   {
     initialRouteName: 'Home',
