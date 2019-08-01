@@ -12,6 +12,7 @@ import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { FlexLayoutPage } from './src/features/flexlayout/FlexLayoutPage';
 import { LoginPage } from './src/features/login/LoginPage';
+import Login from './src/features/AuthScreens/index'
 import {
   SafeAreaView,
   StyleSheet,
@@ -21,10 +22,20 @@ import {
   StatusBar,
   Button,
 } from 'react-native';
+import { Provider } from 'react-redux';
+import configureStore from "./src/store/store";
+import { PersistGate } from "redux-persist/integration/react";
+
 
 export default class App extends React.Component {
   render() {
-    return <AppContainer />;
+    return <SafeAreaView style={{ flex: 1 }}>
+    <Provider store={configureStore().store}>
+      <PersistGate loading={null} persistor={configureStore().persistor}>
+        <AppContainer />
+      </PersistGate>
+    </Provider>
+  </SafeAreaView>
   }
 }
 
@@ -36,11 +47,11 @@ export interface Props {
 
 }
 
-class HomeScreen extends React.Component<State,Props> {
+class HomeScreen extends React.Component<State, Props> {
 
   constructor(props: Props) {
     super(props);
-    
+
   }
 
   render() {
@@ -58,7 +69,7 @@ class HomeScreen extends React.Component<State,Props> {
         />
         <Button
           title="Login Page"
-          onPress={() => this.props.navigation.navigate('LoginPage')}
+          onPress={() => this.props.navigation.navigate('Auth')}
         />
       </View>
     );
@@ -82,7 +93,8 @@ const RootStack = createStackNavigator(
     Home: HomeScreen,
     Details: DetailsScreen,
     FlexLayout: FlexLayoutPage,
-    LoginPage : LoginPage
+    LoginPage: LoginPage,
+    Auth: Login
   },
   {
     initialRouteName: 'Home',
