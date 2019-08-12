@@ -1,14 +1,34 @@
 import React from 'react';
-import { Text, ScrollView, StyleSheet, View } from 'react-native';
-
+import { Text, ScrollView, StyleSheet, View ,DeviceEventEmitter,requireNativeComponent} from 'react-native';
+var ScanView = requireNativeComponent('ScanView',ScanView,{});
 export class FlexLayoutPage extends React.Component{
+
+    // ...
+componentDidMount() {
+    // DeviceEventEmitter.addListener('keyboardWillShow', (e: Event) => {
+    //   // handle event.
+    // });
+  }
+  componentWillUnmount() {
+    // When you want to stop listening to new events, simply call .remove() on the subscription
+    // this.subscription.remove();
+  }
+
     render(){
       return(
           <View style={styles.container}>
           
           <Text style={styles.box_red}></Text>
           <Text style={styles.box_blue}></Text>
-        
+          <ScanView
+               onScanCodeRead={(event)=>{
+                console.log("linchangjian");
+                console.log(event);
+
+
+            }}
+            {...this.props} >
+            </ScanView>
           </View>
       );  
     };
